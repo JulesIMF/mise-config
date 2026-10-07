@@ -1,13 +1,33 @@
 # Развёртывание на новой машине
 
-Первичный минимум: Git, mise, доступ по SSH к `git@github.com:JulesIMF/mise-config.git` и права `sudo` для системных пакетов. На Ubuntu Git/curl можно поставить через `sudo apt-get update && sudo apt-get install -y git curl ca-certificates`. На Mac проверьте `git --version`; если macOS предлагает Command Line Tools, установите их. На Apple Silicon отдельная установка Homebrew для профилей `brew:`/`brew-cask:` не нужна: mise использует встроенный менеджер.
+## Быстрый запуск
+
+`bootstrap.sh` — POSIX `sh` скрипт для Linux и macOS. Запустите из bash или zsh:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/JulesIMF/mise-config/main/bootstrap.sh | sh
+```
+
+Скрипт читает публичный `https://github.com/JulesIMF/mise-config.git` без учётных данных. Если на машине уже работает GitHub SSH-ключ, он выберет SSH-адрес для последующей публикации изменений; иначе оставит HTTPS. Для публикации через HTTPS позже понадобится GitHub credential helper или переключение origin на SSH.
+
+Скрипт предложит профили в терминале (поток `stdin` занят кодом скрипта), установит необходимые первичные пакеты, поставит mise, проверит доступ к репозиторию, создаст локальные файлы выбора профилей и ручной синхронизации, применит `mise bootstrap --adopt`, выставит `/bin/zsh` login shell через `sudo`, а на Linux затем запустит отдельный root setup. Пароль `sudo` вводите в терминале. При повторном запуске локальные файлы и копия старого `.zshrc` сохраняются.
+
+Для запуска без интерактивного выбора передайте список профилей в окружении процесса `sh`:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/JulesIMF/mise-config/main/bootstrap.sh | MISE_BOOTSTRAP_PROFILES=work,server,docker-ubuntu sh
+```
+
+Для проверки выбора без изменений можно выполнить `sh bootstrap.sh --dry-run`. После завершения скрипт напечатает полные пути к `miserc.local.toml`, локальному рабочему файлу и инструкции. После смены login shell и добавления в группу Docker требуется новый вход.
+
+На Ubuntu Git/curl при необходимости можно поставить вручную через `sudo apt-get update && sudo apt-get install -y git curl ca-certificates`. На Mac проверьте `git --version`; если macOS предлагает Command Line Tools, установите их. На Apple Silicon отдельная установка Homebrew для профилей `brew:`/`brew-cask:` не нужна: mise использует встроенный менеджер.
 
 ## 1. Установить mise и выбрать профили
 
 ```sh
 curl https://mise.run | sh
 export PATH="$HOME/.local/bin:$PATH"
-git ls-remote git@github.com:JulesIMF/mise-config.git HEAD
+git ls-remote https://github.com/JulesIMF/mise-config.git HEAD
 
 mkdir -p "$HOME/.config/mise"
 cat > "$HOME/.config/mise/config.local.toml" <<'EOF'
@@ -37,8 +57,8 @@ EOF
 На Ubuntu с `docker-ubuntu` обновите APT-индексы при первом применении нового репозитория:
 
 ```sh
-mise bootstrap --adopt git@github.com:JulesIMF/mise-config.git --update --dry-run
-mise bootstrap --adopt git@github.com:JulesIMF/mise-config.git --update
+mise bootstrap --adopt https://github.com/JulesIMF/mise-config.git --update --dry-run
+mise bootstrap --adopt https://github.com/JulesIMF/mise-config.git --update
 ```
 
 На Mac и на Linux без нового APT-репозитория опустите `--update`. Перед применением сохраните старый `.zshrc`: mise добавит свои управляемые блоки, но не удалит старые строки инициализации nvm/fzf/zoxide/atuin. После проверки удалите дублирующиеся старые строки вручную. Если у машины уже есть конфликтующий `~/.config/mise/config.toml`, adoption остановится и предложит разрешить конфликт; проверьте `mise dot status`, выберите версию файла через `mise dot pull`, затем повторите `mise bootstrap`.
