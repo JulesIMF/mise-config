@@ -1,6 +1,6 @@
 #!/bin/sh
 # Bootstrap a new Linux or macOS machine from the public mise configuration.
-# curl -fsSL https://raw.githubusercontent.com/JulesIMF/mise-config/main/bootstrap.sh | sh
+# curl -fsSL https://raw.githubusercontent.com/JulesIMF/mise-config/main/config/bootstrap.sh | sh
 set -eu
 
 case "${1:-}" in

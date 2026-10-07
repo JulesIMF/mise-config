@@ -5,7 +5,7 @@
 `bootstrap.sh` — POSIX `sh` скрипт для Linux и macOS. Запустите из bash или zsh:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JulesIMF/mise-config/main/bootstrap.sh | sh
+curl -fsSL https://raw.githubusercontent.com/JulesIMF/mise-config/main/config/bootstrap.sh | sh
 ```
 
 Скрипт читает публичный `https://github.com/JulesIMF/mise-config.git` без учётных данных. Если на машине уже работает GitHub SSH-ключ, он выберет SSH-адрес для последующей публикации изменений; иначе оставит HTTPS. Для публикации через HTTPS позже понадобится GitHub credential helper или переключение origin на SSH.
@@ -15,7 +15,7 @@ curl -fsSL https://raw.githubusercontent.com/JulesIMF/mise-config/main/bootstrap
 Для запуска без интерактивного выбора передайте список профилей в окружении процесса `sh`:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/JulesIMF/mise-config/main/bootstrap.sh | MISE_BOOTSTRAP_PROFILES=work,server,docker-ubuntu sh
+curl -fsSL https://raw.githubusercontent.com/JulesIMF/mise-config/main/config/bootstrap.sh | MISE_BOOTSTRAP_PROFILES=work,server,docker-ubuntu sh
 ```
 
 Для проверки выбора без изменений можно выполнить `sh bootstrap.sh --dry-run`. После завершения скрипт напечатает полные пути к `miserc.local.toml`, локальному рабочему файлу и инструкции. После смены login shell и добавления в группу Docker требуется новый вход.
