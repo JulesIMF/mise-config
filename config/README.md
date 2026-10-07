@@ -1,6 +1,8 @@
 # Консольная конфигурация mise
 
-Этот каталог — исходник для `~/.config/mise/`. Первый хост: рабочий Ubuntu 22.04 ПК. Профили других машин здесь подготовлены, но на них ещё не применялись. Текущий статус установки и публикации нужно проверять по `mise bootstrap plan`, `mise dot status` и удалённому репозиторию.
+Этот каталог — копия исходника `~/.config/mise/`. На рабочем Ubuntu 22.04 ПК конфигурация применена 2026-10-07: пользовательский zsh, 26 CLI через mise, Docker Engine/Compose и семь системных CLI для root. Профили других машин подготовлены, но на них ещё не применялись. Актуальное состояние проверяется через `mise bootstrap plan`, `mise dot status` и удалённый репозиторий.
+
+Порядок выбора профилей и первого запуска на новом устройстве: [DEPLOY.md](DEPLOY.md).
 
 ## Состав
 
@@ -9,7 +11,7 @@
 | Профиль | Назначение |
 | --- | --- |
 | `config.toml`, `shell/base.zsh` | zsh, промпт и общие функции `wdcopy`, `pcopy`, `today`, `mz` |
-| `conf.d/modern/` | базовые современные CLI, алиасы, инициализация и отдельный option completion |
+| `conf.d/modern/` | базовые современные CLI, Rust для Cargo-инструментов, алиасы, инициализация и отдельный option completion |
 | `linux`, `macos` | системные zsh, git, curl, jq |
 | `host`, `server`, `container` | роль машины; Docker daemon в dev-контейнере не запускается |
 | `work`, `personal` | принадлежность машины; рабочие локальные настройки остаются вне репозитория |
@@ -17,7 +19,7 @@
 | `docker-ubuntu` | официальный APT-репозиторий Docker, Engine, Compose и service |
 | `docker-macos` | OrbStack для поддерживаемого Apple Silicon Mac |
 | `node` | Node и `npm:@openai/codex`; nvm и Cline сохранены на диске, но не подключаются |
-| `modern-extra` | Rust и дополнительные Cargo CLI |
+| `modern-extra` | дополнительные Cargo CLI |
 | `yandex-cloud`, `skotty` | отдельные включаемые интеграции |
 | `root/` | системные modern CLI и отдельный zsh root |
 
@@ -35,14 +37,14 @@ Node берётся из mise. Нынешние каталоги nvm и уста
 
 ## Применение на Ubuntu
 
-Перед первой миграцией сохраните копию `.zshrc` и проверьте `mise bootstrap plan`. Для нового Ubuntu с Docker нужен `mise bootstrap --update`: ключ и `.sources` создаются в фазе `pre-packages`, затем APT обновляет индексы. Ранее существовавший `/etc/apt/sources.list.d/docker.list` можно удалить только после проверки, что он содержит ровно тот же официальный источник, и после успешной установки по `.sources`.
+Перед первой миграцией сохраните копию `.zshrc` и проверьте `mise bootstrap plan`. На текущем ПК копия лежит в `~/.zshrc.pre-mise-2026-10-07`. Для нового Ubuntu с Docker нужен `mise bootstrap --update`: ключ и `.sources` создаются в фазе `pre-packages`, затем APT обновляет индексы. На текущем ПК прежний `/etc/apt/sources.list.d/docker.list` удалён после проверки его эквивалентности новому `.sources`.
 
 На новом Linux-хосте Docker-профиль добавляет пользователя bootstrap в группу `docker`, если его там ещё нет. На текущем ПК запись группы уже существует, но действующий процесс получил старый список групп: нужен новый вход. Участники группы `docker` получают привилегии уровня root через сокет Docker.
 
-Для root используется отдельный `root/config.toml` в `/root/.config/mise/`, бинарник mise в системном PATH, system install для набора CLI, файлы `root/modern-root.zsh` и `modern-option-completion.zsh` в `/etc/julesimf-shell/`. В `/root/.zshrc` добавляется `root/zshrc-snippet.zsh`. Пользовательский `.zshrc` root не источает.
+Для root используется отдельный `root/config.toml` в `/root/.config/mise/`, бинарник mise в системном PATH, system install для набора CLI, файлы `root/modern-root.zsh` и `modern-option-completion.zsh` в `/etc/julesimf-shell/`. В `/root/.zshrc` добавляется `root/zshrc-snippet.zsh`. На новом Linux-хосте эти шаги выполняет `root/install.sh` после основного bootstrap. Пользовательский `.zshrc` root не источает.
 
 ## Сохранение и добавление программ
 
-Сначала проверьте `mise dot status` и список отслеживаемых файлов: `miserc.local.toml`, локальный рабочий shell-файл и generated completion не должны попасть в Git. Затем установите ручной режим: `mise dot origin set git@github.com:JulesIMF/mise-config.git --sync manual`. После проверки применённой конфигурации выполните `mise dot save` и `mise dot sync`. Автоматической синхронизации, установки или обнаружения новых пакетов нет. Новую программу добавляют в подходящий профиль и запускают `mise bootstrap plan` / `mise bootstrap` на нужном устройстве.
+Сначала проверьте `mise dot status` и список отслеживаемых файлов: `miserc.local.toml`, локальный рабочий shell-файл и generated completion не должны попасть в Git. Затем установите ручной режим: `mise dot origin set git@github.com:JulesIMF/mise-config.git --sync manual`. После проверки применённой конфигурации выполните `mise dot save ~/.config/mise` и `mise dot sync`. Путь нужен из-за `autosave = false`. Автоматической синхронизации, установки или обнаружения новых пакетов нет. Новую программу добавляют в подходящий профиль и запускают `mise bootstrap plan` / `mise bootstrap` на нужном устройстве.
 
 Mac, серверы и контейнеры ещё требуют проверки на месте. Mac-профиль Docker использует OrbStack и рассчитан на Apple Silicon. Локальные `miserc.local.toml` на других машинах следует сформировать из примера, выбрав только нужные роли.

@@ -7,6 +7,7 @@ for _dir in "$HOME/.local/share/zsh/site-functions" "$HOME/.zfunc" /opt/homebrew
 done
 unset _dir
 zstyle ':completion:*' completer _expand _complete _ignored
+zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' menu select
 setopt globdots
 if ! (( $+functions[compdef] )); then

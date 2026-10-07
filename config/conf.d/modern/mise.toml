@@ -1,6 +1,7 @@
 # Always-on base submodule. Most tools use portable releases on Linux/macOS;
 # atuin and tokei use Cargo for compatibility with older Linux libc.
 [tools]
+rust = "stable"
 eza = "latest"
 zoxide = "latest"
 "cargo:atuin" = "latest"
