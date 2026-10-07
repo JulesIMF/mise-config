@@ -1,0 +1,26 @@
+# Always-on base submodule. Most tools use portable releases on Linux/macOS;
+# atuin and tokei use Cargo for compatibility with older Linux libc.
+[tools]
+eza = "latest"
+zoxide = "latest"
+"cargo:atuin" = "latest"
+fzf = "latest"
+broot = "latest"
+bat = "latest"
+delta = "latest"
+difftastic = "latest"
+dust = "latest"
+duf = "latest"
+btop = "latest"
+ripgrep = "latest"
+fd = "latest"
+"cargo:tokei" = "latest"
+tlrc = "latest"
+sd = "latest"
+xh = "latest"
+hyperfine = "latest"
+just = "latest"
+
+[dotfiles]
+"~/.config/julesimf-shell/modern.zsh" = { source = "shell/modern.zsh", mode = "copy" }
+"~/.config/julesimf-shell/modern-option-completion.zsh" = { source = "shell/modern-option-completion.zsh", mode = "copy" }

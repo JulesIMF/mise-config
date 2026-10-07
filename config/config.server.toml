@@ -1,0 +1,10 @@
+# Server extras; the common shell and modern CLI module also apply here.
+[bootstrap.packages]
+"apt:tmux" = "latest"
+"apt:rsync" = "latest"
+"dnf:tmux" = "latest"
+"dnf:rsync" = "latest"
+"pacman:tmux" = "latest"
+"pacman:rsync" = "latest"
+"apk:tmux" = "latest"
+"apk:rsync" = "latest"

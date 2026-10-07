@@ -1,0 +1,8 @@
+# Keep this selection local to each machine.
+# Examples:
+#   work Mac:       env = ["work", "host", "node", "docker-macos"]
+#   personal Mac:   env = ["personal", "host"]
+#   Ubuntu desktop: env = ["work", "host", "ubuntu-desktop", "docker-ubuntu", "node", "modern-extra", "yandex-cloud", "skotty"]
+#   work server:    env = ["work", "server"]
+#   dev container:  env = ["work", "container"]
+env = ["work", "host", "ubuntu-desktop", "docker-ubuntu", "node", "modern-extra", "yandex-cloud", "skotty"]

@@ -1,0 +1,4 @@
+# Selected on primary workstations; replaces the interactive nvm initialization.
+[tools]
+node = "latest"
+"npm:@openai/codex" = "latest"

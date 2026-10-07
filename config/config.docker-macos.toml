@@ -1,0 +1,4 @@
+# Optional OrbStack profile for a supported Apple Silicon Mac.
+# The app must be opened once to finish setup; inspect the Mac before applying.
+[bootstrap.packages]
+"brew-cask:orbstack" = { os = "macos" }

@@ -1,0 +1,54 @@
+# Optional Docker Engine profile for Ubuntu hosts (including this PC).
+# Requires `mise bootstrap --update` on a fresh host so apt refreshes metadata
+# after the pre-packages files are written. Enable via local env selection.
+
+[bootstrap.directories."/etc/apt/keyrings"]
+owner = "root"
+group = "root"
+mode = "0755"
+phase = "pre-packages"
+
+[bootstrap.files."/etc/apt/keyrings/docker.asc"]
+source = "docker/docker.asc"
+owner = "root"
+group = "root"
+mode = "0644"
+phase = "pre-packages"
+
+[bootstrap.files."/etc/apt/sources.list.d/docker.sources"]
+content = '''Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: {{ exec(command="sh -c '. /etc/os-release; printf %s \"${UBUNTU_CODENAME:-$VERSION_CODENAME}\"'") | trim }}
+Components: stable
+Architectures: {{ exec(command="dpkg --print-architecture") | trim }}
+Signed-By: /etc/apt/keyrings/docker.asc
+'''
+template = true
+owner = "root"
+group = "root"
+mode = "0644"
+phase = "pre-packages"
+
+[bootstrap.packages]
+"apt:docker-ce" = "latest"
+"apt:docker-ce-cli" = "latest"
+"apt:containerd.io" = "latest"
+"apt:docker-buildx-plugin" = "latest"
+"apt:docker-compose-plugin" = "latest"
+
+[bootstrap.services.docker]
+state = "running"
+enabled = true
+
+# On a new host, append the bootstrap user's existing account to docker after
+# the package creates the group. This is a no-op on the current PC: the account
+# database already lists julesimf in docker, though this session has stale groups.
+[bootstrap.hooks.post-packages]
+run = '''
+if [ "$(id -u)" != 0 ] && getent group docker >/dev/null; then
+  login_user=$(id -un)
+  if ! id -nG "$login_user" | tr ' ' '\n' | grep -qx docker; then
+    sudo usermod -aG docker "$login_user"
+  fi
+fi
+'''

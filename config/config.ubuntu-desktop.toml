@@ -1,0 +1,6 @@
+# Selected only on an Ubuntu desktop, not a remote server or container.
+[bootstrap.packages]
+"apt:xclip" = "latest"
+
+[dotfiles]
+"~/.config/julesimf-shell/ubuntu-desktop.zsh" = { source = "shell/ubuntu-desktop.zsh", mode = "copy" }

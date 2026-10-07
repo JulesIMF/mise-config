@@ -1,0 +1,11 @@
+# Development-container extras. Actual container name should be passed as
+# CONTAINER_NAME; otherwise the prompt uses the container hostname/ID.
+[bootstrap.packages]
+"apt:build-essential" = "latest"
+"apt:pkg-config" = "latest"
+"dnf:gcc" = "latest"
+"dnf:make" = "latest"
+"dnf:pkgconf-pkg-config" = "latest"
+"pacman:base-devel" = "latest"
+"apk:build-base" = "latest"
+"apk:pkgconf" = "latest"

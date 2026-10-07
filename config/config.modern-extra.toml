@@ -1,0 +1,8 @@
+# Optional extras observed in Cargo inventory, left outside the always-on
+# module because Cargo builds can be slow and need native build prerequisites.
+[tools]
+rust = "stable"
+"cargo:procs" = "latest"
+"cargo:ouch" = "latest"
+"cargo:dua-cli" = "latest"
+"cargo:xcp" = "latest"

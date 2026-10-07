@@ -1,0 +1,2 @@
+# Select config.macos.toml/config.linux.toml automatically.
+auto_env = true

@@ -1,0 +1,10 @@
+# Main config in ~/.config/mise/config.toml.
+# The modern CLI module lives in conf.d/modern/ and is always loaded.
+
+[bootstrap.user]
+login_shell = "/bin/zsh"
+
+[dotfiles]
+"~/.config/julesimf-shell/base.zsh" = { source = "shell/base.zsh", mode = "copy" }
+"~/.config/mise" = { mode = "track", autosave = false }
+"~/.zshrc/julesimf-base" = { block = '[[ -r "$HOME/.config/julesimf-shell/base.zsh" ]] && source "$HOME/.config/julesimf-shell/base.zsh"' }

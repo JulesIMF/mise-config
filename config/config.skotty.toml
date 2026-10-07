@@ -1,0 +1,4 @@
+# Opt in explicitly per device. The eval is isolated from the base shell.
+[dotfiles]
+"~/.config/julesimf-shell/skotty.zsh" = { source = "shell/skotty.zsh", mode = "copy" }
+"~/.zshrc/julesimf-skotty" = { block = '[[ -r "$HOME/.config/julesimf-shell/skotty.zsh" ]] && source "$HOME/.config/julesimf-shell/skotty.zsh"' }

@@ -1,0 +1,11 @@
+# Root's independent /root/.config/mise/config.toml on Linux hosts.
+# Install these same versions with `mise install --system` as the ordinary user
+# before activating them in root's shell.
+[tools]
+eza = "latest"
+bat = "latest"
+dust = "latest"
+duf = "latest"
+btop = "latest"
+ripgrep = "latest"
+fd = "latest"

@@ -1,0 +1,6 @@
+# macOS ships zsh at /bin/zsh. mise's built-in brew manager currently targets
+# Apple Silicon, so an Intel Mac needs a separate Homebrew bootstrap decision.
+[bootstrap.packages]
+"brew:git" = { os = "macos" }
+"brew:curl" = { os = "macos" }
+"brew:jq" = { os = "macos" }

@@ -1,0 +1,8 @@
+# Work-local paths and secrets stay in an unmanaged file on each device.
+# rwt, zp and sdtool are intentionally NOT declared here.
+[dotfiles]
+"~/.zshrc/julesimf-work-local" = { block = '[[ -r "$HOME/.config/julesimf-shell/work-local.zsh" ]] && source "$HOME/.config/julesimf-shell/work-local.zsh"' }
+
+[bootstrap.packages]
+"apt:git-lfs" = "latest"
+"brew:git-lfs" = { os = "macos" }

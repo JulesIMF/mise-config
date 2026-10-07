@@ -1,0 +1,5 @@
+# Opt in explicitly per device. No installation command: yc is currently
+# installed in ~/yandex-cloud and its installer owns these generated files.
+[dotfiles]
+"~/.config/julesimf-shell/yandex-cloud.zsh" = { source = "shell/yandex-cloud.zsh", mode = "copy" }
+"~/.zshrc/julesimf-yandex-cloud" = { block = '[[ -r "$HOME/.config/julesimf-shell/yandex-cloud.zsh" ]] && source "$HOME/.config/julesimf-shell/yandex-cloud.zsh"' }
