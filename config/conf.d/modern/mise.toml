@@ -21,7 +21,6 @@ sd = "latest"
 xh = "latest"
 hyperfine = "latest"
 just = "latest"
-yazi = { version = "latest", libc = "musl" }
 numbat = "latest"
 "aqua:fujiapple852/trippy" = "latest"
 doggo = "latest"
