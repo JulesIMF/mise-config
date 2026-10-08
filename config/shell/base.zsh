@@ -28,14 +28,18 @@ bindkey -e
 
 autoload -Uz colors
 colors
-_julesimf_context=zsh
-if [[ -e /.dockerenv || -n ${container-} || -n ${CONTAINER_NAME-} ]]; then
-  _julesimf_context="zsh docker ${CONTAINER_NAME:-$(hostname)}"
-elif [[ -n ${SSH_CONNECTION-} || -n ${SSH_TTY-} ]]; then
-  _julesimf_context="zsh remote $(hostname)"
-fi
-PROMPT="%B%F{magenta}(${_julesimf_context}) %F{cyan}%n %F{yellow}%~ %f%b%# "
-unset _julesimf_context
+_julesimf_set_prompt() {
+  local context=zsh
+  if [[ -n ${JULESIMF_PROMPT_HOSTNAME-} ]]; then
+    context="zsh ${JULESIMF_PROMPT_HOSTNAME}"
+  elif [[ -e /.dockerenv || -n ${container-} || -n ${CONTAINER_NAME-} ]]; then
+    context="zsh docker ${CONTAINER_NAME:-$(hostname)}"
+  elif [[ -n ${SSH_CONNECTION-} || -n ${SSH_TTY-} ]]; then
+    context="zsh remote $(hostname)"
+  fi
+  PROMPT="%B%F{magenta}(${context}) %F{cyan}%n %F{yellow}%~ %f%b%# "
+}
+_julesimf_set_prompt
 
 # Keep a PATH for mise before activation; modern CLI hooks need its shims.
 [[ -d "$HOME/.local/bin" ]] && path=("$HOME/.local/bin" $path)

@@ -69,7 +69,7 @@ elif [ -e "$profiles_file" ]; then
 else
   [ -r /dev/tty ] || die 'Выберите профили через MISE_BOOTSTRAP_PROFILES=personal,server перед curl | sh.'
   say "Профили новой машины (через запятую), Enter = $default_profiles:"
-  say 'Доступны: work, personal, host, server, container, ubuntu-desktop, docker-ubuntu, docker-macos, node, modern-extra, yandex-cloud, skotty.'
+  say 'Доступны: work, personal, host, server, container, ubuntu-desktop, docker-ubuntu, docker-macos, node, modern-extra, yandex-cloud, skotty, hostname-prompt.'
   IFS= read -r selected </dev/tty || die 'Не удалось прочитать выбор профилей.'
   [ -n "$selected" ] || selected=$default_profiles
 fi
@@ -88,7 +88,7 @@ if [ -n "$selected" ]; then
   for profile do
     profile=$(printf '%s' "$profile" | tr -d '[:space:]')
     case "$profile" in
-      work|personal|host|server|container|ubuntu-desktop|docker-ubuntu|docker-macos|node|modern-extra|yandex-cloud|skotty) ;;
+      work|personal|host|server|container|ubuntu-desktop|docker-ubuntu|docker-macos|node|modern-extra|yandex-cloud|skotty|hostname-prompt) ;;
       *) die "Неизвестный профиль: $profile" ;;
     esac
     case "$profile" in host|server|container) role_count=$((role_count + 1));; esac

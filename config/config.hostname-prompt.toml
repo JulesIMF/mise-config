@@ -1,0 +1,5 @@
+# Opt in per machine through miserc.local.toml. Adds only the hostname label.
+[dotfiles]
+"~/.config/julesimf-shell/hostname-prompt.sh" = { source = "shell/hostname-prompt.sh", mode = "copy" }
+"~/.zshrc/julesimf-hostname-prompt" = { block = '[[ -r "$HOME/.config/julesimf-shell/hostname-prompt.sh" ]] && source "$HOME/.config/julesimf-shell/hostname-prompt.sh"' }
+"~/.bashrc/julesimf-hostname-prompt" = { block = '[ -r "$HOME/.config/julesimf-shell/hostname-prompt.sh" ] && . "$HOME/.config/julesimf-shell/hostname-prompt.sh"' }

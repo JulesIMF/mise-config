@@ -52,6 +52,8 @@ EOF
 
 `docker-ubuntu` запускает Docker Engine на Ubuntu, `docker-macos` ставит OrbStack на Apple Silicon. В dev-контейнере отдельный Docker daemon не предусмотрен. `ubuntu-desktop` включает графические алиасы `pbcopy`/`pbpaste`. `modern-extra` добавляет четыре Cargo CLI; Rust для базовых Atuin/tokei ставится и без него. `work-local.zsh` с рабочими скриптами и секретами нужно создать отдельно на каждой рабочей машине; mise лишь подключит его, если файл существует.
 
+Чтобы показывать имя машины в промпте, дополните любой список `env` профилем `"hostname-prompt"`. Например: `env = ["personal", "host", "node", "hostname-prompt"]`. Для нестандартной подписи заранее задайте `JULESIMF_PROMPT_HOSTNAME`; без неё берётся результат `hostname`. Профиль добавляет `(zsh <hostname>)` или `(bash <hostname>)` и не выбран на текущем Ubuntu ПК.
+
 ## 2. Применить сохранённую конфигурацию
 
 На Ubuntu с `docker-ubuntu` обновите APT-индексы при первом применении нового репозитория:
