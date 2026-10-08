@@ -10,7 +10,5 @@
   ],
   "exclude": [],
   "recipients": [],
-  "permissions": {
-    "config/tests": 509
-  }
+  "permissions": {}
 }
