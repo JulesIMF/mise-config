@@ -4,3 +4,12 @@
 "brew:git" = { os = "macos" }
 "brew:curl" = { os = "macos" }
 "brew:jq" = { os = "macos" }
+"brew:btop" = { os = "macos" }
+
+[env]
+# curl is keg-only; prefer Brew btop over old Cargo binaries/shims.
+_.path = ["/opt/homebrew/opt/curl/bin", "/opt/homebrew/opt/btop/bin"]
+
+[dotfiles]
+"~/.config/julesimf-shell/macos.zsh" = { source = "shell/macos.zsh", mode = "copy" }
+"~/.zprofile/julesimf-macos" = { block = '[[ -r "$HOME/.config/julesimf-shell/macos.zsh" ]] && source "$HOME/.config/julesimf-shell/macos.zsh"' }

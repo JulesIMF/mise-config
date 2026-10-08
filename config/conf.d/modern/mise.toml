@@ -12,7 +12,7 @@ delta = "latest"
 difftastic = "latest"
 dust = "latest"
 duf = "latest"
-btop = "latest"
+btop = { version = "latest", os = ["linux"] }
 ripgrep = "latest"
 fd = "latest"
 "cargo:tokei" = "latest"

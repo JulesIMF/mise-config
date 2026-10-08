@@ -1,6 +1,10 @@
 # Shared interactive zsh setup. Never source this for non-interactive shells.
 [[ -o interactive ]] || return 0
 
+if [[ "$OSTYPE" == darwin* && -r "$HOME/.config/julesimf-shell/macos.zsh" ]]; then
+  source "$HOME/.config/julesimf-shell/macos.zsh"
+fi
+
 # Keep vendor/user completions outside mise ownership. fpath must precede compinit.
 for _dir in "$HOME/.local/share/zsh/site-functions" "$HOME/.zfunc" /opt/homebrew/share/zsh/site-functions; do
   [[ -d "$_dir" ]] && fpath=("$_dir" $fpath)
@@ -8,14 +12,16 @@ done
 unset _dir
 zstyle ':completion:*' completer _expand _complete _ignored
 zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' menu select
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 setopt globdots
 if ! (( $+functions[compdef] )); then
   autoload -Uz compinit
   compinit
 fi
 
-HISTFILE="${HISTFILE:-$HOME/.histfile}"
+HISTFILE="$HOME/.histfile"
 HISTSIZE=10000
 SAVEHIST=100000
 bindkey -e
