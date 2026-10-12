@@ -24,6 +24,7 @@ just = "latest"
 numbat = "latest"
 "aqua:fujiapple852/trippy" = "latest"
 doggo = "latest"
+"cargo:binwalk" = "latest"
 
 [dotfiles]
 "~/.config/julesimf-shell/modern.zsh" = { source = "shell/modern.zsh", mode = "copy" }

@@ -10,5 +10,9 @@
   ],
   "exclude": [],
   "recipients": [],
-  "permissions": {}
+  "permissions": {
+    "config/config.hostname-prompt.toml": 436,
+    "config/shell/hostname-prompt.sh": 436,
+    "config/tests": 509
+  }
 }

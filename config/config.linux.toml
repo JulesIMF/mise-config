@@ -5,6 +5,9 @@
 "apt:curl" = "latest"
 "apt:ca-certificates" = "latest"
 "apt:jq" = "latest"
+"apt:build-essential" = "latest" # cargo:binwalk build dependencies
+"apt:libfontconfig1-dev" = "latest"
+"apt:liblzma-dev" = "latest"
 "dnf:zsh" = "latest"
 "dnf:git" = "latest"
 "dnf:curl" = "latest"
