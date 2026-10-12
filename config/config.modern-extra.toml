@@ -5,3 +5,7 @@
 "cargo:ouch" = "latest"
 "cargo:dua-cli" = "latest"
 "cargo:xcp" = "latest"
+
+[dotfiles]
+"~/.config/julesimf-shell/modern-extra.zsh" = { source = "shell/modern-extra.zsh", mode = "copy" }
+"~/.zshrc/julesimf-modern-extra" = { block = '[[ -r "$HOME/.config/julesimf-shell/modern-extra.zsh" ]] && source "$HOME/.config/julesimf-shell/modern-extra.zsh"' }
