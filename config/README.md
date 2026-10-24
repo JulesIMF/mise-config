@@ -21,6 +21,7 @@
 | `node` | Node и `npm:@openai/codex`; nvm и Cline сохранены на диске, но не подключаются |
 | `modern-extra` | дополнительные Cargo CLI |
 | `yandex-cloud`, `skotty` | отдельные включаемые интеграции |
+| `hostname-prompt` | необязательная метка имени машины в промпте zsh и bash |
 | `root/` | системные modern CLI и отдельный zsh root |
 
 На текущем ПК выбран `work + host + ubuntu-desktop + docker-ubuntu + node + modern-extra + yandex-cloud + skotty`. Версии `latest` плавающие, lockfile не используется. Повторный `mise bootstrap` должен применять только расхождения; `mise install` при тех же разрешённых версиях ничего повторно не собирает. Обновления при новом релизе могут менять систему, поэтому перед ними полезен `mise bootstrap plan`.
@@ -32,6 +33,8 @@ Mac-профиль добавляет `opt/curl/bin` и `opt/btop/bin` в PATH �
 ## Промпт и zsh
 
 Новая оболочка показывает `(zsh) user path %`, `(zsh docker <container>) user path %` или `(zsh remote <hostname>) user path %`. В контейнере сначала используется `CONTAINER_NAME`, затем `hostname`, который может быть ID. Передайте `CONTAINER_NAME`, если требуется читаемое имя. Контейнер имеет приоритет над SSH.
+
+Необязательный профиль `hostname-prompt` показывает `(zsh <hostname>)` и добавляет `(bash <hostname>)` перед существующим Bash-промптом. Он задаёт `JULESIMF_PROMPT_HOSTNAME` из команды `hostname`; при желании задайте эту переменную заранее, чтобы использовать своё имя. Явно включённая метка имеет приоритет над автоматическими `docker`/`remote` метками. На текущем Ubuntu ПК профиль не выбран. Включается добавлением `"hostname-prompt"` в локальный `~/.config/mise/miserc.local.toml`, затем `mise bootstrap` и новый shell.
 
 `shell/base.zsh` добавляет `~/.zfunc`, `~/.local/share/zsh/site-functions` и Homebrew `site-functions` в `fpath` до `compinit`. Файлы completion, созданные установщиками, остаются локальными и не отслеживаются. Собственные переносимые completion можно добавить в `dotfiles` соответствующего профиля. `conf.d/modern/shell/modern-option-completion.zsh` содержит запасные правила и не заменяет специализированные completion, кроме явного исправления `delta`.
 
